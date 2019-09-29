@@ -5,8 +5,13 @@ import Cython.Compiler.Options
 
 Cython.Compiler.Options.annotate = True
 
-ext_modules = [Extension("mciso", ["mciso.pyx"],extra_compile_args=['/O2','/openmp','/fp:fast'])]
-#ext_modules = [Extension("cmolcore", ["cmolcore.pyx"],extra_compile_args=['/openmp'])]
+# FOR WINDOWS:
+# ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['/O2', '/openmp', '/fp:fast'])]
+
+# FOR LINUX:
+ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math'])]
+
+# ext_modules = [Extension("cmolcore", ["cmolcore.pyx"],extra_compile_args=['/openmp'])]
 
 setup(
   name = 'CubeSurfer core script',
