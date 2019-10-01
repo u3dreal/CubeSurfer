@@ -170,18 +170,22 @@ def isosurf(context):
         zmin = 10000000000
         zmax = -10000000000
         for obj, psys, sizem in surfobj[1:]:
-            # print(obj,psys,res,sizem)
+            #print(obj,psys,res,sizem)
             psys = bpy.context.evaluated_depsgraph_get().objects.get(obj, None).particle_systems[psys]
-            print(psys)
+            #print(psys)
+            #print(len(psys.particles))
             if 'IsoLocalUV' not in psys.settings:
                 print("  WARNING: no IsoLocalUV prop found")
                 psys.settings['IsoLocalUV'] = [0, 0, 0]
             psysize = len(psys.particles)
-            print(psysize * 3)
-            print(len(psys.settings['IsoLocalUV']))
+            #print(psysize * 3)
+            #dir(psys.settings['IsoLocalUV'])
+            #print(len(psys.settings['IsoLocalUV']))
             if len(psys.settings['IsoLocalUV']) != (psysize * 3):
                 print("  WARNING: not same numbers of props found")
                 psys.settings['IsoLocalUV'] = [0] * psysize * 3
+                
+                
             for par in range(psysize):
                 if psys.particles[par].alive_state == 'ALIVE':
                     size = psys.particles[par].size * sizem
