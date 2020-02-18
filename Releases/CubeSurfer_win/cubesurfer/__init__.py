@@ -368,11 +368,19 @@ class UIListPanelExample(Panel):
             box.alert = False
             row = box.row()
             row.alignment = 'CENTER'
-            row.label(text="Originally written by Pyroevil")
+            row.label(text="THANKS TO ALL DONATORS !")
             row = box.row()
             row.alignment = 'CENTER'
-            row.label(text="Updated for 2.8+ by Porkminer")
-            
+            row.label(text="If you want donate to support my work")
+            row = box.row()
+            row.alignment = 'CENTER'
+            row.operator("wm.url_open", text=" click here to Donate ", icon='URL').url = "www.pyroevil.com/donate/"
+            row = box.row()
+            row.alignment = 'CENTER'
+            row.label(text="or visit: ")
+            row = box.row()
+            row.alignment = 'CENTER'
+            row.label(text="www.pyroevil.com/donate/")
 
         else:
             layout = self.layout
