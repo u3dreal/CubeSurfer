@@ -545,11 +545,11 @@ def register():
 
 def unregister():
     bpy.utils.unregister_manual_map(add_isosurf_manual_map)
-    bpy.types.INFO_MT_mesh_add.remove(add_isosurf_button)
+    bpy.types.VIEW3D_MT_mesh_add.remove(add_isosurf_button)
     for item in classes_list:
         bpy.utils.unregister_class(item)
     del bpy.types.Object.IsoSurf
-    # bpy.utils.register_class(IsoLocalUV)
+    # bpy.utils.unregister_class(IsoLocalUV)
 
 
 if isosurf not in bpy.app.handlers.frame_change_post:

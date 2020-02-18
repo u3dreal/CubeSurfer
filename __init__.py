@@ -368,11 +368,19 @@ class UIListPanelExample(Panel):
             box.alert = False
             row = box.row()
             row.alignment = 'CENTER'
-            row.label(text="Originally written by Pyroevil")
+            row.label(text="THANKS TO ALL DONATORS !")
             row = box.row()
             row.alignment = 'CENTER'
-            row.label(text="Updated for 2.8+ by Porkminer")
-            
+            row.label(text="If you want donate to support my work")
+            row = box.row()
+            row.alignment = 'CENTER'
+            row.operator("wm.url_open", text=" click here to Donate ", icon='URL').url = "www.pyroevil.com/donate/"
+            row = box.row()
+            row.alignment = 'CENTER'
+            row.label(text="or visit: ")
+            row = box.row()
+            row.alignment = 'CENTER'
+            row.label(text="www.pyroevil.com/donate/")
 
         else:
             layout = self.layout
@@ -537,11 +545,11 @@ def register():
 
 def unregister():
     bpy.utils.unregister_manual_map(add_isosurf_manual_map)
-    bpy.types.INFO_MT_mesh_add.remove(add_isosurf_button)
+    bpy.types.VIEW3D_MT_mesh_add.remove(add_isosurf_button)
     for item in classes_list:
         bpy.utils.unregister_class(item)
     del bpy.types.Object.IsoSurf
-    # bpy.utils.register_class(IsoLocalUV)
+    # bpy.utils.unregister_class(IsoLocalUV)
 
 
 if isosurf not in bpy.app.handlers.frame_change_post:

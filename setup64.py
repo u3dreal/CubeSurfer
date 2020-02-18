@@ -5,13 +5,13 @@ import Cython.Compiler.Options
 
 Cython.Compiler.Options.annotate = True
 
-# FOR WINDOWS:
-# ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['/O2', '/openmp', '/fp:fast'])]
-
-# FOR LINUX:
-ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math'])]
-
-# ext_modules = [Extension("cmolcore", ["cmolcore.pyx"],extra_compile_args=['/openmp'])]
+from sys import platform
+if platform == "linux" or platform == "linux2":
+    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math'])]
+elif platform == "darwin":
+    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math', '-Wl,-Bstatic -lgomp'])]
+elif platform == "win32":
+    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['/O2', '/openmp', '/fp:fast'])]
 
 setup(
   name = 'CubeSurfer core script',
