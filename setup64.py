@@ -7,7 +7,7 @@ Cython.Compiler.Options.annotate = True
 
 from sys import platform
 if platform == "linux" or platform == "linux2":
-    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math'])]
+    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math'], extra_link_args=['-fopenmp'])]
 elif platform == "darwin":
     ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math', '-Wl,-Bstatic -lgomp'])]
 elif platform == "win32":
