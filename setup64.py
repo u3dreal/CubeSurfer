@@ -9,7 +9,7 @@ from sys import platform
 if platform == "linux" or platform == "linux2":
     ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math'], extra_link_args=['-fopenmp'])]
 elif platform == "darwin":
-    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math', '-Wl,-Bstatic -lgomp'])]
+    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math', '-I/usr/local/include/'], extra_link_args=['-fopenmp'])]
 elif platform == "win32":
     ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['/O2', '/openmp', '/fp:fast'])]
 
