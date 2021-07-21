@@ -17,15 +17,13 @@
 # ======================= END GPL LICENSE BLOCK ========================
 
 bl_info = {
-    "name": "Cube Surfer script",
-    "author": "Jean-Francois Gallant(PyroEvil)",
-    "version": (0, 0, 2),
-    "blender": (2, 80, 0),
+    "name": "CubeSurfer",
+    "author": "Jean-Francois Gallant (PyroEvil)",
+    "version": (0, 0, 3),
+    "blender": (2, 93, 0),
     "location": "Properties > Object Tab",
-    "description": ("Cube Surfer script (Updated by Gogo)"),
+    "description": "Isosurface remesher (updated by Shankar Sivarajan)",
     "warning": "",  # used for warning icon and text in addons panel
-    "wiki_url": "http://pyroevil.com/",
-    "tracker_url": "http://pyroevil.com/",
     "category": "Object"}
 
 import bpy
@@ -130,7 +128,7 @@ def isosurf(context):
     global tmframe
     scn = bpy.context.scene
 
-    stime = time.clock()
+    stime = time.time()
     global a
     SurfList = []
     i = 0
@@ -162,7 +160,7 @@ def isosurf(context):
         ploc = []
         psize = []
         pprop = []
-        stime = time.clock()
+        stime = time.time()
         xmin = 10000000000
         xmax = -10000000000
         ymin = 10000000000
@@ -199,11 +197,11 @@ def isosurf(context):
         if len(psize) > 0:
 
             isolevel = 0.0
-            print('  pack particles:', time.clock() - stime, 'sec')
+            print('  pack particles:', time.time() - stime, 'sec')
 
             a, b = mciso.isosurface(res, isolevel, ploc, psize, pprop)
-            print('  mciso:', time.clock() - stime, 'sec')
-            stime = time.clock()
+            print('  mciso:', time.time() - stime, 'sec')
+            stime = time.time()
 
             # if "myMesh" in bpy.data.meshes:
             # mesurf = bpy.data.meshes['myMesh']
@@ -303,7 +301,7 @@ def isosurf(context):
             # """
             # scn.update()
 
-            print('  Bmesh:', time.clock() - stime, 'sec')
+            print('  Bmesh:', time.time() - stime, 'sec')
 
             # bpy.context.scene.objects.unlink(obsurf)
             # bpy.data.objects.remove(obsurf)
@@ -368,19 +366,11 @@ class UIListPanelExample(Panel):
             box.alert = False
             row = box.row()
             row.alignment = 'CENTER'
-            row.label(text="THANKS TO ALL DONATORS !")
+            row.label(text="Originally written by Pyroevil")
             row = box.row()
             row.alignment = 'CENTER'
-            row.label(text="If you want donate to support my work")
-            row = box.row()
-            row.alignment = 'CENTER'
-            row.operator("wm.url_open", text=" click here to Donate ", icon='URL').url = "www.pyroevil.com/donate/"
-            row = box.row()
-            row.alignment = 'CENTER'
-            row.label(text="or visit: ")
-            row = box.row()
-            row.alignment = 'CENTER'
-            row.label(text="www.pyroevil.com/donate/")
+            row.label(text="Updated for 2.8+ by Porkminer")
+            
 
         else:
             layout = self.layout
@@ -392,7 +382,7 @@ class UIListPanelExample(Panel):
 class OBJECT_OT_isosurfer_add(bpy.types.Operator):
     bl_label = "Add/Remove items from IsoSurf obj"
     bl_idname = "op.isosurfer_item_add"
-    add = bpy.props.BoolProperty(default=True)
+    add: bpy.props.BoolProperty(default=True)
 
     def invoke(self, context, event):
         add = self.add
@@ -415,14 +405,14 @@ class OBJECT_OT_isosurfer_add(bpy.types.Operator):
 
 
 class IsoSurf(bpy.types.PropertyGroup):
-    # name = StringProperty()
-    active = BoolProperty()
-    id = IntProperty()
-    obj = StringProperty()
-    psys = StringProperty()
-    # res = FloatProperty()
-    sizem = FloatProperty(precision=4)
-    weight = FloatProperty()
+    # name: StringProperty()
+    active: BoolProperty()
+    id: IntProperty()
+    obj: StringProperty()
+    psys: StringProperty()
+    # res: FloatProperty()
+    sizem: FloatProperty(precision=4)
+    weight: FloatProperty()
 
 
 class IsoLocalUV(bpy.types.Operator):
@@ -545,11 +535,11 @@ def register():
 
 def unregister():
     bpy.utils.unregister_manual_map(add_isosurf_manual_map)
-    bpy.types.VIEW3D_MT_mesh_add.remove(add_isosurf_button)
+    bpy.types.INFO_MT_mesh_add.remove(add_isosurf_button)
     for item in classes_list:
         bpy.utils.unregister_class(item)
     del bpy.types.Object.IsoSurf
-    # bpy.utils.unregister_class(IsoLocalUV)
+    # bpy.utils.register_class(IsoLocalUV)
 
 
 if isosurf not in bpy.app.handlers.frame_change_post:

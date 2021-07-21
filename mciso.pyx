@@ -5,7 +5,7 @@
 # NOTE: order of slow fonction to be optimize/multithreaded: kdtreesearching , kdtreecreating , linksolving 
 
 cimport cython
-from time import clock
+import time
 from libc.math cimport sin , ceil , floor , fabs
 from cython.parallel import parallel , prange , threadid
 from libc.stdlib cimport malloc , realloc, free , rand , srand
