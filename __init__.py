@@ -34,7 +34,7 @@ from bpy_extras.object_utils import AddObjectHelper, object_data_add
 from mathutils import Vector
 import bmesh
 import sys
-from cubesurfer import mciso
+from Cubesurfer import mciso
 import time
 import ctypes
 from mathutils.geometry import barycentric_transform as barycentric
@@ -182,8 +182,8 @@ def isosurf(context):
             if len(psys.settings['IsoLocalUV']) != (psysize * 3):
                 print("  WARNING: not same numbers of props found")
                 psys.settings['IsoLocalUV'] = [0] * psysize * 3
-                
-                
+
+
             for par in range(psysize):
                 if psys.particles[par].alive_state == 'ALIVE':
                     size = psys.particles[par].size * sizem
@@ -370,7 +370,7 @@ class UIListPanelExample(Panel):
             row = box.row()
             row.alignment = 'CENTER'
             row.label(text="Updated for 2.8+ by Porkminer")
-            
+
 
         else:
             layout = self.layout
@@ -482,7 +482,7 @@ class IsoLocalUV(bpy.types.Operator):
                     uv1 = object2.data.uv_layers.active.data[uvindex1].uv.to_3d()
                     uv2 = object2.data.uv_layers.active.data[uvindex2].uv.to_3d()
                     uv3 = object2.data.uv_layers.active.data[uvindex3].uv.to_3d()
-                    
+
                     p = object2.matrix_world @ point[1]
                     v1 = Vector(v1)
                     v2 = Vector(v2)

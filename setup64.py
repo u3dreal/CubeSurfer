@@ -1,17 +1,22 @@
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
-import Cython.Compiler.Options 
+import Cython.Compiler.Options
 
 Cython.Compiler.Options.annotate = True
 
 from sys import platform
 if platform == "linux" or platform == "linux2":
-    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math'], extra_link_args=['-fopenmp'])]
+    ext_modules = [Extension("mciso", ["mciso.pyx"],
+    extra_compile_args=['-O2', '-fopenmp', '-ffast-math'],
+    extra_link_args=['-fopenmp'])]
 elif platform == "darwin":
-    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['-O2', '-fopenmp', '-ffast-math', '-I/usr/local/include/'], extra_link_args=['-fopenmp'])]
+    ext_modules = [Extension("mciso", ['mciso' + '.pyx'],
+    extra_compile_args=['-march=x86-64', '-msse4.2', '-O3', '-ffast-math', '-fopenmp'],
+    extra_link_args=['-fopenmp', '-static', '-lm'] )]
 elif platform == "win32":
-    ext_modules = [Extension("mciso", ["mciso.pyx"], extra_compile_args=['/O2', '/openmp', '/fp:fast'])]
+    ext_modules = [Extension("mciso", ["mciso.pyx"],
+    extra_compile_args=['/O2', '/openmp', '/fp:fast'])]
 
 setup(
   name = 'CubeSurfer core script',
